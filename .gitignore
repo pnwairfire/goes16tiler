@@ -1,3 +1,4 @@
 .env
 local_stuart/
 __pycache__
+temp/*

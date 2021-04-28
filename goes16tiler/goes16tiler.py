@@ -29,6 +29,7 @@ from .s3utils import s3Utils
 NATURAL_FIRE =  "C06 C03 C02"
 LWIR = "C16"
 TRUE_COLOR = "C01 C02 C03"
+CLOUD_TOP: "C11"
 
 DEFAULT_CITY = {
     "city": 'Seattle',
@@ -54,7 +55,7 @@ class GOES16Tiler(object):
         products such as NIGHTIME_MICROPHYSICS will take more development.
     """
 
-    def __init__(self, timezone="UTC", location_info=DEFAULT_CITY, day_channels=TRUE_COLOR,
+    def __init__(self, timezone="UTC", location_info=DEFAULT_CITY, day_channels=NATURAL_FIRE,
                  night_channels=LWIR, zoom=8, cutline='conus'):
         self.dt = self.get_datetime()
         self.naive_dt = datetime.utcnow()
@@ -209,27 +210,27 @@ class GOES16Tiler(object):
 
     def merge_tiffs(self):
         bands = self.channels.split()
-        if self.mode == "day":
-            print(f"************* Processing day bands into RGB *************")
+        if len(bands) > 1:
+            print(f"************* Processing bands into RGB *************")
             merge_cmd = f"""
             gdal_merge.py -separate  -a_nodata 255 255 255 -o ./temp/rgb.tif -co PHOTOMETRIC=RGB './temp/_us_'{bands[0]}.tif './temp/_us_'{bands[1]}.tif './temp/_us_'{bands[2]}.tif
             """
             merge = subprocess.run(merge_cmd, shell=True, stdout=subprocess.PIPE)
         else:
-            print(f"************* No merging for single night band *************")
+            print(f"************* No merging for single band *************")
 
         print(merge.stdout.decode('UTF-8'))
 
 
     def tile_tiffs(self):
         if self.mode == "day":
-            print(f"************* Tiling the Day Bands *************")
+            print(f"************* Tiling the Day set *************")
             tile_cmd = f"""
             gdal2tiles.py -x -p mercator -z '0-'{self.zoom} -w all -r average -a 0.0 ./temp/rgb.tif tiles
             """
             tile = subprocess.run(tile_cmd, shell=True, stdout=subprocess.PIPE)
         else:
-            print(f"************* Tiling the Single Night Band *************")
+            print(f"************* Tiling the Night Set *************")
             tile_cmd = f"""
             gdal2tiles.py -p mercator -z '0-'{self.zoom} -w all -r average -a 0.0 './temp/_us_'{bands[0]}.tif tiles
             """

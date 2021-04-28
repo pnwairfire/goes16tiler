@@ -5,6 +5,7 @@ from botocore.config import Config
 
 __author__ = "Stuart Illson"
 
+# Single GOES-16 Product for now
 GOES_PRODUCT = "L1b-RadC"
 
 class s3Utils(object):
