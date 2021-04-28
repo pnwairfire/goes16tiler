@@ -26,9 +26,10 @@ import pytz
 
 from .s3utils import s3Utils
 
+# Band Combinations set in R-G-B order if multi-band
 NATURAL_FIRE =  "C06 C03 C02"
 LWIR = "C16"
-TRUE_COLOR = "C01 C02 C03"
+TRUE_COLOR = "C02 C03 C01"
 CLOUD_TOP: "C11"
 
 DEFAULT_CITY = {
@@ -55,7 +56,7 @@ class GOES16Tiler(object):
         products such as NIGHTIME_MICROPHYSICS will take more development.
     """
 
-    def __init__(self, timezone="UTC", location_info=DEFAULT_CITY, day_channels=NATURAL_FIRE,
+    def __init__(self, timezone="UTC", location_info=DEFAULT_CITY, day_channels=TRUE_COLOR,
                  night_channels=LWIR, zoom=8, cutline='conus'):
         self.dt = self.get_datetime()
         self.naive_dt = datetime.utcnow()
