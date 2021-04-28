@@ -47,6 +47,24 @@ GOES16 isn't high resolution. Default is 8, but I found 9 can be helpful if you 
 - **cutline:** Defaults to 'conus', which is geojson of the continenal United States stored in `spatial_data/`. Also a cutline arguement for north america that can be used called `full`.
 Additionally you may pass in any valid geojson file you like to cut. Make sure it's using EPSG::3857 and has CRS set as: `"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } }`. 
 
+## Hosting Tiles
+Tiles can be hosted locally (realtive to your web-map), or I found s3 to be a great place to store them. the aws CLI has a great command to sync a directory (`tiles` in this case) with the s3 bucket of your choice. 
 
+```
+aws s3 sync tiles/ 's3://'{YOUR_S3_BUCKET} --acl public-read
+```
+
+## Adding a TileLayer to Leaflet
+Leaflet provides a ridiculously easy way to add tile layers to map, and you can figure out how to use them as basemaps [from the documentation](https://leafletjs.com/reference-1.7.1.html#tilelayer). The example.html file has a working example you can look through, but the sauce is here:
+`var lyr = L.tileLayer('./tiles/{z}/{x}/{y}.png', {tms: true, opacity: 1.0, attribution: "", minZoom: 0, maxZoom: 19, maxNativeZoom: 8});`
+
+## TODO
+This is a quick way to share some of the scripts I have been using. The code should be repurposed for your specific needs, but hopefully provides a pattern. It is in no way feature complete. It would be great to provide logging, error handling, and support a wide range of GOES16 products and derived products (Nightime Microphysics anyone?). If I continue to use this software for my own purposes, I will build it out here. 
+
+## Thanks
+Thanks to Joel Dubowy, [Boyd Shearer](https://github.com/boydx)'s work, and others. 
+
+## Contributions / Questions
+Feel free to develop this code further, leave an issue, or reach out to stuartillson@gmail.com with questions
 
 
