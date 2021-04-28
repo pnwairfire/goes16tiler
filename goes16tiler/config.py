@@ -1,0 +1,6 @@
+GOES_PRODUCTS = {
+    "TRUE_COLOR": "C01 C02 C03"
+    "NATURAL_FIRE": "C06 C03 C02",
+    "LWIR": "C16",
+    "CLOUD_TOP": "C11"
+}

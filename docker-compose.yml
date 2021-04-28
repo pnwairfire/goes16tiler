@@ -1,0 +1,14 @@
+version: "3.5"
+services:
+  goes16tiler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./tiles:/tiles
+      - ./goes16tiler:/goes16tiler
+      - ./spatial_data:/spatial_data
+      - ./temp:/temp
+    env_file:
+      - ./.env
+    image: "goes16tiler:v1.0"
