@@ -237,6 +237,14 @@ class GOES16Tiler(object):
 
         print(tile.stdout.decode('UTF-8'))
 
+    def build_tileset(self):
+        self.clean_previous_run()
+        self.search_for_files()
+        self.download_nc_files()
+        self.format_nc_to_tiff()
+        self.merge_tiffs()
+        self.tile_tiffs()
+
         # IMPLEMENT S3 SYNC functionality later?
         # def push_tiles_to_s3(self):
         #     print(f"************* Pushing Tiles to S3 *************")
