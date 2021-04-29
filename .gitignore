@@ -1,5 +1,7 @@
 .env
 local_stuart/
 __pycache__
-temp/*
-tiles/*
+temp/*.nc
+temp/*.tif
+temp/*.xml
+tiles/*.png
