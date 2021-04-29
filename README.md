@@ -59,7 +59,9 @@ Leaflet provides a ridiculously easy way to add tile layers to map, and you can 
 `var lyr = L.tileLayer('./tiles/{z}/{x}/{y}.png', {tms: true, opacity: 1.0, attribution: "", minZoom: 0, maxZoom: 19, maxNativeZoom: 8});`
 
 ## Running with Docker
-From the repo directory:
+If you'd like to run from within a docker container to save yourself from any dependencies, you can build from the repo directory.
+Just a word of warning that these are large files and are memory intensive -- so you'll need to partition enough resources to Docker to make
+the process performant.
 
 Build the container:
 
@@ -82,7 +84,12 @@ Then you may start a python/ipython terminal to run the scripts:
 ipython
 
 from goes16tiler import GOES16Tiler
+
+# set object with defaults
 g = GOES16Tiler()
+
+# build with defaults
+g.build_tileset()
 
 ...
 ```
