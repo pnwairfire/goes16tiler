@@ -194,13 +194,13 @@ class GOES16Tiler(object):
             gdal_translate -ot Byte -of Gtiff -scale {lo} {hi} 0 255 ./temp/{i}.tif './temp/_scale_'{i}.tif
             gdalwarp './temp/_scale_'{i}.tif -t_srs EPSG:3857 -s_srs {PROJ} -r cubic -of Gtiff  './temp/_prj_'{i}.tif
             gdalwarp -cutline {self.cutline} -crop_to_cutline './temp/_prj_'{i}.tif './temp/_us_'{i}.tif
-            rm './temp/_scale_'{i}.tif; rm './temp/_prj_'{i}.tif #rm {i}.tif;
+            rm './temp/_scale_'{i}.tif; rm './temp/_prj_'{i}.tif rm {i}.tif;
             """
             scale_night_cmd = f"""
             gdal_translate -ot Byte -of Gtiff -scale {lo} {hi} 255 0 ./temp/{i}.tif './temp/_scale_'{i}.tif
             gdalwarp './temp/_scale_'{i}.tif -t_srs EPSG:3857 -s_srs {PROJ} -r cubic -of Gtiff  './temp/_prj_'{i}.tif
             gdalwarp -cutline {self.cutline} -crop_to_cutline './temp/_prj_'{i}.tif './temp/_us_'{i}.tif
-            rm './temp/_scale_'{i}.tif; rm './temp/_prj_'{i}.tif #rm {i}.tif;
+            rm './temp/_scale_'{i}.tif; rm './temp/_prj_'{i}.tif rm {i}.tif;
             """
             if self.mode == "day":
                 scale = subprocess.run(scale_day_cmd, shell=True, stdout=subprocess.PIPE)
