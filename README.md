@@ -40,7 +40,7 @@ DEFAULT_CITY = {
 }
 ```
 - **day_channels:** Default band combinations for when it's "daytime". These are static as I have not tried implementing too many or using ones that require calculations between bands. 
-could be done without too much effort. Defaults to `TRUE_COLOR = "C01 C02 C03"`.
+could be done without too much effort. Defaults to `TRUE_COLOR = "C02 C03 C01"`. NOTE THAT THIS IS NOT REAL TRUE COLOR. It uses the NIR (0.86 µm) band for green. Can be corrected with the calc -- true_green = 0.45 * R + 0.1 * G + 0.45 * B. See this [formula here](https://unidata.github.io/python-gallery/examples/mapping_GOES16_TrueColor.html).
 - **night_channels:** Default band combinations for when it's "night". Defaults to `LWIR = "C16"`
 - **zoom**: Controls the level at which gdal2tiles.py will tile the produced tif. The deeper the zoom, the more intensive the process. It's also diminishing returns as
 GOES16 isn't high resolution. Default is 8, but I found 9 can be helpful if you have the processing power and time. 
