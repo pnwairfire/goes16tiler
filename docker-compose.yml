@@ -5,10 +5,10 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./tiles:/tiles
-      - ./goes16tiler:/goes16tiler
-      - ./spatial_data:/spatial_data
-      - ./temp:/temp
+      - ./tiles:/app/tiles
+      - ./goes16tiler:/app/goes16tiler
+      - ./spatial_data:/app/spatial_data
+      - ./temp:/app/temp
     env_file:
       - ./.env
     image: "goes16tiler:v1.0"

@@ -11,7 +11,9 @@ RUN apt-get update \
 RUN pip3 install --upgrade pip && \
     pip3 install -r requirements.txt
 
-COPY ./goes16tiler goes16tiler
-COPY ./spatial_data spatial_data
-COPY ./tiles tiles
-COPY ./temp temp
+RUN mkdir /app/
+WORKDIR /app/
+COPY ./goes16tiler /app/goes16tiler
+COPY ./spatial_data /app/spatial_data
+COPY ./tiles /app/tiles
+COPY ./temp /app/temp
