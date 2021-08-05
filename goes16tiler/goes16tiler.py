@@ -144,7 +144,10 @@ class GOES16Tiler(object):
 
     def search_for_files(self):
         # GOES-16 File Parameters
-        dt = pytz.utc.localize(self.naive_dt, is_dst=None).astimezone(pytz.timezone(self.astral_location.timezone))
+        # dt = pytz.utc.localize(self.naive_dt, is_dst=None).astimezone(pytz.timezone(self.astral_location.timezone))
+        # override for CONUS
+        dt = datetime.utcnow()
+        dt = pytz.timezone('UTC').localize(dt)
 
         all_files = self.s3_utils.nc_files_at_hour(dt)
 
