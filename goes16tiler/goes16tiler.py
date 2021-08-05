@@ -217,11 +217,9 @@ class GOES16Tiler(object):
             gdal_merge.py -separate  -a_nodata 255 255 255 -o ./temp/rgb.tif -co PHOTOMETRIC=RGB './temp/_us_'{bands[0]}.tif './temp/_us_'{bands[1]}.tif './temp/_us_'{bands[2]}.tif
             """
             merge = subprocess.run(merge_cmd, shell=True, stdout=subprocess.PIPE)
+            print(merge.stdout.decode('UTF-8'))
         else:
             print(f"************* No merging for single band *************")
-
-        print(merge.stdout.decode('UTF-8'))
-
 
     def tile_tiffs(self):
         if self.mode == "day":
