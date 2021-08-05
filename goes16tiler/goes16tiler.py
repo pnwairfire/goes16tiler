@@ -231,7 +231,7 @@ class GOES16Tiler(object):
         else:
             print(f"************* Tiling the Night Set *************")
             tile_cmd = f"""
-            gdal2tiles.py -p mercator -z '0-'{self.zoom} -w all -r average -a 0.0 './temp/_us_'{bands[0]}.tif tiles
+            gdal2tiles.py -p mercator -z '0-'{self.zoom} -w all -r average -a 0.0 './temp/_us_'{self.channels}.tif tiles
             """
             tile = subprocess.run(tile_cmd, shell=True, stdout=subprocess.PIPE)
 
