@@ -17,3 +17,4 @@ COPY ./goes16tiler /app/goes16tiler
 COPY ./spatial_data /app/spatial_data
 COPY ./tiles /app/tiles
 COPY ./temp /app/temp
+COPY ./run.py /app/run.py
