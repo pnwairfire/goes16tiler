@@ -66,7 +66,7 @@ the process performant.
 Build the container:
 
 ```
-docker build . -t goes16tiler:v1.0
+docker build . -t goes16tiler:v1.1
 ```
 
 Then boot the container
@@ -76,7 +76,7 @@ docker run --rm \
 -v $PWD/goes16tiler:/app/goes16tiler \
 -v $PWD/spatial_data:/app/spatial_data \
 -v $PWD/temp:/app/temp \
--i -t goes16tiler:v1.0 /bin/bash
+-i -t goes16tiler:v1.1 /bin/bash
 ```
 
 Then you may start a python/ipython terminal to run the scripts:

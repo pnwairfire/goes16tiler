@@ -56,9 +56,9 @@ class GOES16Tiler(object):
         products such as NIGHTIME_MICROPHYSICS will take more development.
     """
 
-    def __init__(self, timezone="UTC", location_info=DEFAULT_CITY, day_channels=TRUE_COLOR,
+    def __init__(self, datetime_str=None, timezone="UTC", location_info=DEFAULT_CITY, day_channels=TRUE_COLOR,
                  night_channels=LWIR, zoom=8, cutline='conus'):
-        self.dt = self.get_datetime()
+        self.dt = self.get_datetime(datetime_str)
         self.naive_dt = datetime.utcnow()
         self.astral_location = self.get_astral_location(location_info)
         self.mode, self.channels = self.day_or_night(day_channels, night_channels)
@@ -69,12 +69,22 @@ class GOES16Tiler(object):
         self.print_config()
 
 
-    def get_datetime(self):
-        # Current time UTC
-        dt = datetime.utcnow()
-        dt = pytz.timezone('UTC').localize(dt)
-        print(dt)
-        return(dt)
+    def get_datetime(self, datetime_str):
+        if not datetime_str:
+            # Current time UTC
+            dt = datetime.utcnow()
+            dt = pytz.timezone('UTC').localize(dt)
+            print(dt)
+            return(dt)
+        else:
+            try:
+                dt = datetime.strptime(datetime_str, "%Y-%m-%d %H")
+                dt = pytz.timezone('UTC').localize(dt)
+                print(dt)
+                return(dt)
+            except:
+                raise Exception("Improperly formatted datetime_str (%Y-%m-%d %H)")
+
 
     def get_astral_location(self, location_info):
         """
